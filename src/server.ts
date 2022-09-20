@@ -30,6 +30,20 @@ app.get('/games', async (request, response) => {
     return response.json(games);
 });
 
+//Criação de games
+app.post('/games', async (request, response) => {
+    const body = request.body;
+
+    const createGame = await prisma.game.create({
+        data: {
+            title: body.title,
+            banner: body.banner
+        }    
+    })
+
+    return response.status(201).json(createGame);
+})
+
 //Criação de ADS, utiliza method POST
 app.post('/games/:id/ads', async (request, response) => {
     const gameId = request.params.id;
